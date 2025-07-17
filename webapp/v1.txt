@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EGGCoin Farm</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>🐔 EGGCoin Farm</h1>
+    <p>Ваши яйца: <span id="eggCount">0</span> 🥚</p>
+
+    <div id="chickenWrapper">
+      <img src="chicken.png" alt="Chicken" id="chicken" draggable="false" />
+    </div>
+
+    <p>Тапните по курице, чтобы заработать яйца!</p>
+
+    <p>Куриц у вас: <span id="chickenCount">1</span></p>
+    <button id="buyChicken">Купить курицу (1000 🥚)</button>
+
+    <hr />
+
+    <button id="shareButton">Посоветовать другу (получить 10 000 🥚)</button>
+    <p id="shareMessage"></p>
+  </div>
+
+  <!-- Панель HUD -->
+  <div class="hud-bar">
+    <img src="icon_home.png" alt="Главная" class="hud-icon" />
+    <img src="icon_stats.png" alt="Статистика" class="hud-icon" />
+    <img src="icon_shop.png" alt="Магазин" class="hud-icon" />
+    <img src="icon_profile.png" alt="Профиль" class="hud-icon" />
+    <img src="icon_menu.png" alt="Меню" class="hud-icon" />
+  </div>
+
+  <!-- Контейнер для анимации яиц -->
+  <div id="eggAnimationContainer"></div>
+
+  <!-- Скрипт обязательно в самом конце -->
+  <script src="script.js"></script>
+</body>
+</html>
+
+✅ style.css
+let eggCount = 0;
+let chickens = 1;
+
+const chicken = document.getElementById("chicken");
+const eggCounter = document.getElementById("eggCount");
+const chickenCount = document.getElementById("chickenCount");
+const buyChicken = document.getElementById("buyChicken");
+const shareButton = document.getElementById("shareButton");
+const shareMessage = document.getElementById("shareMessage");
+chicken.addEventListener("dragstart", (e) => e.preventDefault());
+
+let hasShared = false;
+
+// Клик по курице
+chicken.addEventListener("click", () => {
+  eggCount += chickens;
+  eggCounter.textContent = eggCount;
+});
+
+// Покупка курицы
+buyChicken.addEventListener("click", () => {
+  if (eggCount >= 1000) {
+    eggCount -= 1000;
+    chickens++;
+    eggCounter.textContent = eggCount;
+    chickenCount.textContent = chickens;
+  } else {
+    alert("Недостаточно яиц для покупки курицы!");
+  }
+});
+
+// Бонус за рекомендацию
+shareButton.addEventListener("click", async () => {
+  if (hasShared) {
+    shareMessage.textContent = "Ты уже получил бонус за приглашение.";
+    return;
+  }
+
+  if (navigator.share) {
+    try {
+      await navigator.share({
+        title: "Играй в EGGCoin!",
+        text: "Тапай курицу и зарабатывай яйца!",
+        url: window.location.href
+      });
+      eggCount += 10000;
+      eggCounter.textContent = eggCount;
+      shareMessage.textContent = "Спасибо! Ты получил 10 000 яиц 🥚";
+      hasShared = true;
+    } catch (err) {
+      shareMessage.textContent = "Не удалось поделиться.";
+    }
+  } else {
+    shareMessage.textContent = "Поделиться можно только с телефона.";
+  }
+});
+
+const eggContainer = document.getElementById("eggAnimationContainer");
+
+chicken.addEventListener("click", (event) => {
+  const egg = document.createElement("div");
+  egg.className = "flying-egg";
+  egg.textContent = "🥚";
+
+  const rect = chicken.getBoundingClientRect();
+  const x = event.clientX;
+  const y = event.clientY;
+
+  egg.style.left = `${x}px`;
+  egg.style.top = `${y}px`;
+
+  eggContainer.appendChild(egg);
+
+  setTimeout(() => {
+    egg.remove();
+  }, 1000);
+});

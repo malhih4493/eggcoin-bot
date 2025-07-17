@@ -1,0 +1,167 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #fdf6e3;
+  background-image: url("background.png");
+  background-size: cover;
+  background-position: center;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.container {
+  max-width: 400px;
+  margin: auto;
+  background: transparent; /* убрали белую подложку */
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: none; /* убрали тень */
+  margin-bottom: 100px;
+}
+
+h1 {
+  font-size: 28px;
+  margin-top: 0;
+}
+
+img#chicken {
+  width: 220px;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-drag: none;
+  -webkit-tap-highlight-color: transparent;
+  border: 3px dashed #ffc107;
+  border-radius: 50%;
+  padding: 5px;
+}
+
+img#chicken:active {
+  transform: scale(1.05);
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  margin-top: 10px;
+  border: none;
+  background-color: #ffc107;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #ff9800;
+}
+
+#shareMessage {
+  margin-top: 10px;
+  font-size: 14px;
+  color: green;
+}
+
+.hud-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  background: rgba(255, 251, 230, 0.95);
+  border-top: 2px solid #ddd;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+  z-index: 10;
+}
+
+.hud-icon {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.hud-icon:hover {
+  transform: scale(1.1);
+}
+
+#chickenWrapper {
+  position: relative;
+  display: inline-block;
+}
+
+#eggAnimationContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.flying-egg {
+  position: absolute;
+  font-size: 24px;
+  animation: flyUp 1s ease-out forwards;
+}
+
+@keyframes flyUp {
+  0% {
+    opacity: 1;
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-40px) scale(1.3);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-80px) scale(1);
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 15px;
+    max-width: 95%;
+  }
+
+  button {
+    font-size: 14px;
+    padding: 8px 14px;
+  }
+  
+  img#chicken.tapped {
+  transform: scale(1.1);
+  }
+
+  img#chicken {
+  width: 220px;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-drag: none;
+  -webkit-tap-highlight-color: transparent;
+  border: 3px dashed #ffc107;
+  border-radius: 50%;
+  padding: 5px;
+}
+
+img#chicken:active {
+  transform: scale(1.1); /* увеличиваем сильнее, чтобы эффект был заметнее */
+}
+
+  .hud-bar {
+    height: 60px;
+  }
+
+  .hud-icon {
+    width: 32px;
+    height: 32px;
+  }
+}
