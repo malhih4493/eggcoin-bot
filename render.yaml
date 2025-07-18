@@ -1,0 +1,4 @@
+build:
+  install:
+    - pip install --upgrade pip
+    - pip install --only-binary :all: aiohttp==3.8.5
