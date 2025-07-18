@@ -1,3 +1,3 @@
 # EGGCoinBot
 Telegram-бот для игры EGGCoin Farm 🐔
-python-3.11.9
+python-3.10.12
