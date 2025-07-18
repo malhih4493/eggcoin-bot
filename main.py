@@ -1,9 +1,9 @@
+import os
 from aiogram import Bot, Dispatcher, types
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 from aiogram.utils import executor
 
-API_TOKEN = '7685806109:AAFqR1MtNB8sYuv13nwPuGnuvOgBqowlmNs'
-bot = Bot(token=API_TOKEN)
+bot = Bot(token=os.getenv("token"))
 dp = Dispatcher(bot)
 
 balances = {}
