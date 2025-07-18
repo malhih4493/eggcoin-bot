@@ -2,8 +2,12 @@ import os
 from aiogram import Bot, Dispatcher, types
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 from aiogram.utils import executor
+from dotenv import load_dotenv
 
-bot = Bot(token=os.getenv("token"))
+load_dotenv()
+
+API_TOKEN = os.getenv("BOT_TOKEN")
+bot = Bot(token=API_TOKEN)
 dp = Dispatcher(bot)
 
 balances = {}
@@ -24,5 +28,4 @@ async def feed_chicken(message: types.Message):
     await message.answer(f"🥚 +1 EGG! Баланс: {balances[user_id]} EGG")
 
 if __name__ == '__main__':
-    from aiogram import executor
     executor.start_polling(dp, skip_updates=True)
